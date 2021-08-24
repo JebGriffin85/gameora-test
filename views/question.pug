@@ -1,0 +1,35 @@
+extends layout
+
+append head
+  script(src="/javascripts/questionPage.js" type="module")
+  link(rel="stylesheet", href="/stylesheets/singleQuestion.css")
+
+block content
+    if (userId === question.userId)
+      input(id='owned' type='hidden' value='true')
+    else
+      input(id='owned' type='hidden' value='false')
+    div(class="img-container")
+            img(src="/images/logo.png" class="game-ora-pic")
+    div(id="body-div")
+      div(id='comment-div')
+          div
+            include error.pug
+            label(for='question' class='question-label') Question:
+            div(name='question' class="question-label" class="single-question-container")=title
+            div(id='questionDiv' class='single-question-container')=question.body
+              if (userId === question.userId)
+                button(class="edit-question" value=question.id) Edit Question
+                button(class="delete-button" value=question.id) Delete Question
+            label(id='commentLabel' for="comments" class='question-label') Comments:
+          div(class='commanets-area') 
+            each comment in comments
+              div(name='comments' id='comment' class='single-question-container')=comment.body
+                if (userId === comment.userId)
+                  button(class="commentEditButton" value=comment.id) Edit Comment
+                  button(class="commentDeleteButton" value=comment.id) Delete Comment
+            form(id=question.id name='form' class="questionForm")
+                //-input(name='_csrf' type='hidden' value=csrfToken)
+                input(name='questionId' type='hidden' value=question.id)
+                textarea(id='newComment' name='newComment' placeholder='Add comment here')
+                button(class="addCommentButton" type='submit' id=question.id) Add Comment

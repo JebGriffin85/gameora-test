@@ -1,0 +1,29 @@
+extends layout
+append head
+    title=title
+    link(rel="stylesheet" href="/stylesheets/new-question.css")
+    link(rel="stylesheet" href="/stylesheets/login.css")
+    script(src="/javascripts/index.js" type="module")
+    script(src="/javascripts/homeClick.js" type="module")
+block content
+    p
+        p .
+            div(class="login")
+                img(src='/images/logo.png' class='logo')
+                div(class='login-container')
+                    if needLogin
+                        p(class='authLoginWarning') You need to be logged in to access certain functionalities
+
+                    include error.pug
+
+                    form(action='/users/login' method='post' class='form')
+
+                        input(name='_csrf' type='hidden' value=csrfToken)
+                        label(for='email') Email
+                        input(name='email' type='text' required)
+                        label(for='password') Password
+                        input(name='password' type='password' required)
+                        button(type='submit') Login
+
+                    p(class='p-register') Need to create an account?
+                        a(href='/users/register' class="register") Register

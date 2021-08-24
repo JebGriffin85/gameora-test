@@ -1,0 +1,36 @@
+doctype html
+html
+  block head
+    title=title
+    link(rel='stylesheet' href='/stylesheets/layout.css')
+    link(rel="icon" type="image/ico" href="/favicon.ico")
+    script(src="/javascripts/index.js" type="module")
+    //- script(src="/javascripts/index.js" type="module")
+  body
+    nav#navbar
+      span.left-navBar
+        a.navButton(class="shimmer-btn" href='/')
+          img#logo(src="/images/logo.png")
+      //- div(class="fps" id="fps") fps:#{num}
+      span.middle-search
+        form(class='search-form' action='/search' method='post')
+          input(type='text'  id='search' name='search' placeholder='Search...')
+          button(type='submit' class='search-submit') Search
+
+      span.right-navBar
+        button.navButton
+          a(class="create-question shimmer-btn" href='/questions') Create Question
+        if authenticated
+          form(action="/users/logout" method="post")
+            button.navButton(class="shimmer-btn" type="submit") Logout
+          div.navButton Welcome, #{user.userName}
+        else
+          button
+            a(class="shimmer-btn" href="/users/login") Login
+          button
+            a(href="/users/register" class="shimmer-btn") Register
+          form(action='/users/logindemo' method='post')
+            button(type='submit' class="demo-button") Demo User
+        div(class="fps" id="fps") fps: 22
+        div(class="ping" id="ping") ping: 20 ms
+  block content

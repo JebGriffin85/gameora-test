@@ -1,0 +1,20 @@
+extends layout
+
+append head
+    //- add page specific styles by appending to the head
+    title=title
+    link(rel="stylesheet" href="/stylesheets/index.css")
+    //- add page specific js
+    script(src="/javascripts/topicsPage.js" type="module" defer)
+
+block content
+
+
+    div(class="img-container")
+        img(src="/images/logo.png" class="game-ora-pic")
+    div(class="page-container")
+        span(class="question-container")
+          each question in questions
+            div(class="single-question-container" id=question.id)
+              label(for="question" class="question-label" id=question.id) Title: #{question.title}
+              div(name="question" id=question.id)= question.body
